@@ -6,7 +6,7 @@ h1 {
     width: 600px;
     height: 500px;
     margin: 0px auto;
-    background-color: greenyellow;
+    background-color: blue;
     border: 2px solid black;
 }
 
@@ -16,4 +16,12 @@ h1 {
     text-align: center;
     padding: 5px;
     border: 2px solid black;
+}
+
+.red {
+    background-color: red;
+}
+
+.yellow {
+    background-color: yellow;
 }
