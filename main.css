@@ -18,6 +18,19 @@ h1 {
     border: 2px solid black;
 }
 
+.base{
+    background-color: white;
+    border-radius: 50%;
+    text-align: center;
+    padding: 5px;
+    border: 2px solid black;
+}
+
+.taken{
+    background-color: blue;
+    border: none;
+}
+
 .red {
     background-color: red;
 }
