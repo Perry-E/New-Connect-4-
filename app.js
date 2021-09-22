@@ -5,15 +5,17 @@ const main = () => {
 
   //Create tr and td
   for (let row = 1; row < 7; row++) {
-    const $tr = $("<tr>").addClass("tr");
+    const $tr = $("<tr>")
+      .addClass("tr")
+      .attr("id", "tr" + row);
     $table.append($tr);
     for (let col = 1; col < 8; col++) {
       const $td = $("<td>")
         .addClass("td empty")
         .addClass("column" + col)
         .text(col)
-        .attr('data-col', col)
-        .attr('data-row', row);
+        .attr("data-col", col)
+        .attr("data-row", row);
       $tr.append($td);
     }
   }
@@ -21,44 +23,17 @@ const main = () => {
     const $tr = $("<tr>").addClass("tr");
     $table.append($tr);
     for (let col = 1; col < 8; col++) {
-      const $td = $("<td>").addClass("td base taken")
+      const $td = $("<td>").addClass("td base taken");
       $tr.append($td);
     }
   }
-
+  ///////////////////////////////////////////////////////////////////////////////////////
   //TODO: Functions for how to win the game
+  ///////////////////////////////////////////////////////////////////////////////////////
   const $td = $(".td");
-  //Function to check if colors match
-  //   const colorCheck = (one, two, three, four) => {
-  //     return one === two && two === three && three === four && one !== ".empty";
-  //   };
-  //////////////////////////////////////////////////////////////////
-  //horizontal function
-  //   const $horizontalWin = () => {
-  //     //for loop the 7 columns
-  //     //console.log($td);
-  //     //console.log($td.hasClass("column1"));
-  //     const $tableRow = $(".tr");
-  //     //console.log($column1);
-  //     for (let row = 0; row < $tableRow.length; row++) {
-  //       //console.log($tableRow[row]);
-  //       for (let col = 0; col < 4; col++) {
-  //         if (
-  //           colorCheck(
-  //             $tableRow[row].children[col],
-  //             $tableRow[row].children[col + 1],
-  //             $tableRow[row].children[col + 2],
-  //             $tableRow[row].children[col + 3]
-  //           )
-  //         ) {
-  //           return true;
-  //         }
-  //       }
-  //     }
-  //   }; $horizontalWin();
-
-  ////////////////////////////////////////////////////////////////////
-  //horizontal function
+  ///////////////////////////////////////////////////////////////////////////////////////
+  //TODO horizontal function
+  ///////////////////////////////////////////////////////////////////////////////////////
   const $horizontalWin = () => {
     //for loop the 7 columns
     //console.log($td);
@@ -68,164 +43,206 @@ const main = () => {
     for (let row = 0; row < $tableRow.length; row++) {
       //console.log($tableRow[row]);
       for (let col = 0; col < 4; col++) {
-        console.log($tableRow[row].children[col]); //count from 1-4
         const firstHorizontal = $tableRow[row].children[col];
-        //console.log($tableRow[row].children[col+1]) //count from 2-5
+        //console.log("First", firstHorizontal); //count from cell 1-4
         const secondHorizontal = $tableRow[row].children[col + 1];
-        //console.log($tableRow[row].children[col+2]) //count from 3-6
+        // console.log("Second", secondHorizontal); //count from cell 2-5
         const thirdHorizontal = $tableRow[row].children[col + 2];
-        //console.log($tableRow[row].children[col+3]) //count from 4-7
+        // console.log(thirdHorizontal); //count from cell 3-6
         const forthHorizontal = $tableRow[row].children[col + 3];
-        if ($(firstHorizontal).hasClass("red")) {
-          return alert("Player 1 wins!");
-        } else if ($(secondHorizontal).hasClass("red")) {
-          return alert("Player 1 wins!");
-        } else if ($(thirdHorizontal).hasClass("red")) {
-          return alert("Player 1 wins!");
-        } else if ($(forthHorizontal).hasClass("red")) {
-          return alert("Player 1 wins!");
+        // console.log(forthHorizontal); //count from cell 4-7
+        if (
+          $(firstHorizontal).hasClass("red") &&
+          $(secondHorizontal).hasClass("red") &&
+          $(thirdHorizontal).hasClass("red") &&
+          $(forthHorizontal).hasClass("red")
+        ) {
+          alert(`Player ${player} won!`);
+        } else if (
+          $(firstHorizontal).hasClass("yellow") &&
+          $(secondHorizontal).hasClass("yellow") &&
+          $(thirdHorizontal).hasClass("yellow") &&
+          $(forthHorizontal).hasClass("yellow")
+        ) {
+          alert(`Player ${player} won!`);
         }
       }
     }
   };
-  //TODO if .column1 === .2 === .3 === .4????
 
-  /////////////////////////////////////////////////
-  //horizontal function
+  ///////////////////////////////////////////////////////////////////////////////////////
+  //TODO vertical function
+  ///////////////////////////////////////////////////////////////////////////////////////
+  const $verticalWin = () => {
+    const $tableRow = $(".tr");
+    for (let column = 0; column < $tableRow.length; column++) {
+      //console.log("first", $("td")[column]);
+      const first = $("td")[column];
+      //console.log("second", $("td")[column+7]);
+      //console.log("third", $("td")[column+14]);
+      //console.log("forth", $("td")[column+21]);
+      //console.log("fifth", $("td")[column+28]);
+      //console.log("sixth", $("td")[column+35]);
+      for (let row = 0; row < 4; row++) {
+        //console.log(($("tr")[row]).children[column]);
+        const firstVertical = $("tr")[row].children[column];
+        //console.log(($("tr")[row+1]).children[column]);
+        const secondVertical = $("tr")[row + 1].children[column];
+        //console.log(($("tr")[row+2]).children[column]);
+        const thirdVertical = $("tr")[row + 2].children[column];
+        //console.log(($("tr")[row+3]).children[column]);
+        const forthVertical = $("tr")[row + 3].children[column];
+        if (
+          $(firstVertical).hasClass("red") &&
+          $(secondVertical).hasClass("red") &&
+          $(thirdVertical).hasClass("red") &&
+          $(forthVertical).hasClass("red")
+        ) {
+          alert(`Player ${player} won!`);
+        } else if (
+          $(firstVertical).hasClass("yellow") &&
+          $(secondVertical).hasClass("yellow") &&
+          $(thirdVertical).hasClass("yellow") &&
+          $(forthVertical).hasClass("yellow")
+        ) {
+          alert(`Player ${player} won!`);
+        }
+      }
+    }
+  };
 
-  //diagonal function
+  ///////////////////////////////////////////////////////////////////////////////////////
+  //TODO diagonal function (\)
+  ///////////////////////////////////////////////////////////////////////////////////////
+  const $backDiagonalWin = () => {
+    const $tableRow = $(".tr");
+    for (let column = 0; column < 7; column++) {
+      //console.log("first", $("td")[column]);
+      const first = $("td")[column];
+      //console.log("second", $("td")[column+7]);
+      //console.log("third", $("td")[column+14]);
+      //console.log("forth", $("td")[column+21]);
+      //console.log("fifth", $("td")[column+28]);
+      //console.log("sixth", $("td")[column+35]);
+      for (let row = 0; row < 4; row++) {
+        //console.log(($("tr")[row]).children[column]);
+        const firstDiagonal = $("tr")[row].children[column];
+        //console.log(($("tr")[row+1]).children[column+1]);
+        const secondDiagonal = $("tr")[row + 1].children[column + 1];
+        //console.log(($("tr")[row+2]).children[column+2]);
+        const thirdDiagonal = $("tr")[row + 2].children[column + 2];
+        //console.log(($("tr")[row+3]).children[column+3]);
+        const forthDiagonal = $("tr")[row + 3].children[column + 3];
+        if (
+          $(firstDiagonal).hasClass("red") &&
+          $(secondDiagonal).hasClass("red") &&
+          $(thirdDiagonal).hasClass("red") &&
+          $(forthDiagonal).hasClass("red")
+        ) {
+          alert(`Player ${player} won!`);
+        } else if (
+          $(firstDiagonal).hasClass("yellow") &&
+          $(secondDiagonal).hasClass("yellow") &&
+          $(thirdDiagonal).hasClass("yellow") &&
+          $(forthDiagonal).hasClass("yellow")
+        ) {
+          alert(`Player ${player} won!`);
+        }
+      }
+    }
+  };
 
+  ///////////////////////////////////////////////////////////////////////////////////////
+  //TODO diagonal function (/)
+  ///////////////////////////////////////////////////////////////////////////////////////
+  const $forwardDiagonalWin = () => {
+    const $tableRow = $(".tr");
+    for (let column = 0; column < 7; column++) {
+      //console.log("first", $("td")[column]);
+      const first = $("td")[column];
+      //console.log("second", $("td")[column+7]);
+      //console.log("third", $("td")[column+14]);
+      //console.log("forth", $("td")[column+21]);
+      //console.log("fifth", $("td")[column+28]);
+      //console.log("sixth", $("td")[column+35]);
+      for (let row = 0; row < 4; row++) {
+        //console.log(($("tr")[row]).children[column]);
+        const firstDiagonal = $("tr")[row].children[column];
+        //console.log(($("tr")[row+1]).children[column-1]);
+        const secondDiagonal = $("tr")[row + 1].children[column - 1];
+        //console.log(($("tr")[row+2]).children[column-2]);
+        const thirdDiagonal = $("tr")[row + 2].children[column - 2];
+        //console.log(($("tr")[row+3]).children[column-3]);
+        const forthDiagonal = $("tr")[row + 3].children[column - 3];
+        if (
+          $(firstDiagonal).hasClass("red") &&
+          $(secondDiagonal).hasClass("red") &&
+          $(thirdDiagonal).hasClass("red") &&
+          $(forthDiagonal).hasClass("red")
+        ) {
+          alert(`Player ${player} won!`);
+        } else if (
+          $(firstDiagonal).hasClass("yellow") &&
+          $(secondDiagonal).hasClass("yellow") &&
+          $(thirdDiagonal).hasClass("yellow") &&
+          $(forthDiagonal).hasClass("yellow")
+        ) {
+          alert(`Player ${player} won!`);
+        }
+      }
+    }
+  };
+
+  ///////////////////////////////////////////////////////////////////////////////////////
   //TODO: Fuction to swap player turn
-  //////////////////////////////////////////
-  let player = "p1";
+  ///////////////////////////////////////////////////////////////////////////////////////
+  let player = "1";
 
   //if/else statements to alternate between player 1 and 2
   for (let i = 0; i < $td.length; i++) {
     //console.log($td[i]);
     const $cellId = $($td[i]).attr("id", "td" + i);
-    console.log($cellId);
+    //console.log($cellId);
+
     $cellId.on("click", () => {
       console.log(player);
       console.log("clicked", $cellId);
-      if (player === "p1" && $cellId.hasClass("empty") && $($td[i+7]).hasClass("base")) {
+
+      if (
+        player === "1" &&
+        $cellId.hasClass("empty") &&
+        $($td[i + 7]).hasClass("base")
+      ) {
         $cellId.removeClass("empty").addClass("red base");
-        player = "p2";
-      } else if (player === "p2" && $cellId.hasClass("empty") && $($td[i+7]).hasClass("base")) {
+        if (
+          $horizontalWin() === true ||
+          $verticalWin() === true ||
+          $backDiagonalWin() === true ||
+          $forwardDiagonalWin() === true
+        ) {
+        } else {
+          player = "2";
+        }
+      } else if (
+        player === "2" &&
+        $cellId.hasClass("empty") &&
+        $($td[i + 7]).hasClass("base")
+      ) {
         $cellId.removeClass("empty").addClass("yellow base");
-        player = "p1";
+        if (
+          $horizontalWin() === true ||
+          $verticalWin() === true ||
+          $backDiagonalWin() === true ||
+          $forwardDiagonalWin() === true
+        ) {
+        } else {
+          player = "1";
+        }
       } else {
-          alert("Please select a valid slot");
+        alert("Please select a valid slot");
       }
-    }); 
+    });
   }
-  
-
-
-//   let player = "p1";
-//   const $tableRow = $(".tr");
-//   //if/else statements to alternate between player 1 and 2
-//   for (let i = 0; i < $tableRow.length; i++) {
-//     //console.log($td[i]);
-//     const $cellId = $($td[i]).attr("id", "td" + i);
-//     //console.log($cellId);
-//     $cellId.on("click", () => {
-//       console.log(player);
-//       console.log("clicked", $cellId);
-//       for (let row = $tableRow.length; row > -1; row--) {
-//         console.log($tableRow[row]);
-//           if (player === "p1" && $cellId.hasClass("empty")) {
-//             $cellId.removeClass("empty").addClass("red");
-//             player = "p2";
-//         } else if (player === "p2" && $cellId.hasClass("empty")) {
-//             $cellId.removeClass("empty").addClass("yellow");
-//             player = "p1";
-//         }
-//       }
-//     });
-
-//   }
-  
-  ///////////////////////////////////////////////
-  //TODO
-  //   function changeColor(event){
-  //       // Get clicked column index
-  //       const $tableRow = $(".tr");
-  //       let column = event.target.cellIndex;
-  //       let row = [];
-
-  //       for (i = 5; i > -1; i--){
-  //           if ($tableRow[i].children[column].style.backgroundColor == 'white'){
-  //               row.push($tableRow[i].children[column]);
-  //               if (player === "p1"){
-  //                   row[0].style.backgroundColor = 'red';
-  //                   return player = "p2";
-  //                 }
-  //             }else if (player === "p2"){
-  //                 row[0].style.backgroundColor = 'yellow';
-  //                 return player = "p1";
-  //             }
-
-  //         }
-  //     }
-
-  //     Array.prototype.forEach.call($td, (cell) => {
-  //         $(cell).on("click", changeColor);
-  //         cell.style.backgroundColor = "white";
-  //     });
-
-  //TODO
-
-  // const $td = $(".td");
-  // for (let i = 0; i < $td.length; i++) {
-  //   //console.log($td[i]);
-  //   const $cellId = $($td[i]).attr("id", "td" + i);
-  //   console.log($cellId);
-  //   if (player === "p1") {
-  //     $cellId.on("click", () => {
-  //       console.log(player);
-  //       console.log("clicked", $cellId);
-  //       $cellId.removeClass("empty").addClass("red");
-  //     });
-  //     player = "p2";
-  //   } else {
-  //     $cellId.on("click", () => {
-  //       console.log(player);
-  //       console.log("clicked", $cellId);
-  //       $cellId.removeClass("empty").addClass("yellow");
-  //     });
-  //     player = "p1";
-  //   }
-  // }
-
-  // if (player === "p1") {
-  //   const $td = $(".td");
-  //   for (let i = 0; i < $td.length; i++) {
-  //     //console.log($td[i]);
-  //     const $cellId = $($td[i]).attr("id", "td" + i);
-  //     //console.log($cellId);
-
-  //     $cellId.on("click", () => {
-  //       console.log("clicked", $cellId);
-  //       $cellId.removeClass("empty").addClass("red");
-  //       console.log(player);
-  //     });
-  //   }
-  //   switchPlayer("p1");
-  // } else {
-  //   const $td = $(".td");
-  //   for (let i = 0; i < $td.length; i++) {
-  //     //console.log($td[i]);
-  //     const $cellId = $($td[i]).attr("id", "td" + i);
-  //     //console.log($cellId);
-
-  //     $cellId.on("click", () => {
-  //       console.log("clicked", $cellId);
-  //       $cellId.removeClass("empty").addClass("yellow");
-  //       console.log("Does it ever reach p2");
-  //     });
-  //   }
-  //   switchPlayer("p2");
-  // }
 };
 
 $(main);
