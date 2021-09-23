@@ -1,31 +1,15 @@
 const main = () => {
-  const $container = $(".container");
-  const $table = $("<table>").addClass("table");
+  const $container = $(".container").addClass("hide show");
+  const $table = $("<table>").addClass("table hide show");
   $container.append($table);
-  const $h3 = $("h3").addClass("playerName").css("color", "red");
+  const $h3 = $("h3")
+    .addClass("playerName hide")
+    .css("color", "red")
+    .attr("id", "h3title");
 
-  const createModal = (phrase) => {
-    // Get the modal
-    const modal = document.getElementById("myModal");
-    // Get the <span> element that closes the modal
-    const span = document.getElementsByClassName("close")[0];
-    modal.style.display = "block";
-    const $paragraph = $("<p>").text(phrase);
-    $(".modal-content").append($paragraph);
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-      modal.style.display = "none";
-      ($paragraph).remove();
-    };
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-        ($paragraph).remove();
-      }
-    };
-  };
-
+  ///////////////////////////////////////////////////////////////////////////////////////
+  //TODO: Creating board
+  ///////////////////////////////////////////////////////////////////////////////////////
   //Create tr and td
   for (let row = 1; row < 7; row++) {
     const $tr = $("<tr>")
@@ -50,6 +34,7 @@ const main = () => {
       $tr.append($td);
     }
   }
+
   ///////////////////////////////////////////////////////////////////////////////////////
   //TODO: Functions for how to win the game
   ///////////////////////////////////////////////////////////////////////////////////////
@@ -80,7 +65,7 @@ const main = () => {
           $(thirdHorizontal).hasClass("red") &&
           $(forthHorizontal).hasClass("red")
         ) {
-          createModal(`Player ${player} won!`);
+          createModal(`PLAYER ${player} WON!`);
           $("h3").remove();
         } else if (
           $(firstHorizontal).hasClass("yellow") &&
@@ -88,7 +73,7 @@ const main = () => {
           $(thirdHorizontal).hasClass("yellow") &&
           $(forthHorizontal).hasClass("yellow")
         ) {
-          createModal(`Player ${player} won!`);
+          createModal(`PLAYER ${player} WON!`);
           $("h3").remove();
         }
       }
@@ -123,7 +108,7 @@ const main = () => {
           $(thirdVertical).hasClass("red") &&
           $(forthVertical).hasClass("red")
         ) {
-          createModal(`Player ${player} won!`);
+          createModal(`PLAYER ${player} WON!`);
           $("h3").remove();
         } else if (
           $(firstVertical).hasClass("yellow") &&
@@ -131,7 +116,7 @@ const main = () => {
           $(thirdVertical).hasClass("yellow") &&
           $(forthVertical).hasClass("yellow")
         ) {
-          createModal(`Player ${player} won!`);
+          createModal(`PLAYER ${player} WON!`);
           $("h3").remove();
         }
       }
@@ -166,7 +151,7 @@ const main = () => {
           $(thirdDiagonal).hasClass("red") &&
           $(forthDiagonal).hasClass("red")
         ) {
-          createModal(`Player ${player} won!`);
+          createModal(`PLAYER ${player} WON!`);
           $("h3").remove();
         } else if (
           $(firstDiagonal).hasClass("yellow") &&
@@ -174,7 +159,7 @@ const main = () => {
           $(thirdDiagonal).hasClass("yellow") &&
           $(forthDiagonal).hasClass("yellow")
         ) {
-          createModal(`Player ${player} won!`);
+          createModal(`PLAYER ${player} WON!`);
           $("h3").remove();
         }
       }
@@ -209,7 +194,7 @@ const main = () => {
           $(thirdDiagonal).hasClass("red") &&
           $(forthDiagonal).hasClass("red")
         ) {
-          createModal(`Player ${player} won!`);
+          createModal(`PLAYER ${player} WON!`);
           $("h3").remove();
         } else if (
           $(firstDiagonal).hasClass("yellow") &&
@@ -217,7 +202,7 @@ const main = () => {
           $(thirdDiagonal).hasClass("yellow") &&
           $(forthDiagonal).hasClass("yellow")
         ) {
-          createModal(`Player ${player} won!`);
+          createModal(`PLAYER ${player} WON!`);
           $("h3").remove();
         }
       }
@@ -228,7 +213,7 @@ const main = () => {
   //TODO: Fuction to swap player turn
   ///////////////////////////////////////////////////////////////////////////////////////
   let player = "1";
-  $h3.text(`Its Player ${player}\'s turn!'`);
+  $h3.text(`PLAYER ${player}`);
 
   //if/else statements to alternate between player 1 and 2
   for (let i = 0; i < $td.length; i++) {
@@ -255,7 +240,7 @@ const main = () => {
         ) {
         } else {
           player = "2";
-          $h3.text(`Its Player ${player}\'s turn!'`).css("color", "yellow");
+          $h3.text(`PLAYER ${player}`).css("color", "yellow");
         }
       } else if (
         player === "2" &&
@@ -271,24 +256,171 @@ const main = () => {
         ) {
         } else {
           player = "1";
-          $h3.text(`Its Player ${player}\'s turn!'`).css("color", "red");
+          $h3.text(`PLAYER ${player}`).css("color", "red");
         }
       } else {
-        createModal("Please select a valid slot");
+        createModal("PLEASE SELECT A VALID SLOT");
       }
     });
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////
-  //TODO: Reset button
+  //TODO: Creating a modal
   ///////////////////////////////////////////////////////////////////////////////////////
-  const resetButton = $("<button>").attr("id", "reset").text("Reset Game");
-  $(".container").append(resetButton);
-  const restart = () => {
-    $(resetButton).on("click", () => {
-      location.reload();
+  const createModal = (phrase) => {
+    // Get the modal
+    const modal = document.getElementById("myModal");
+    // Get the <span> element that closes the modal
+    const span = document.getElementsByClassName("close")[0];
+    modal.style.display = "block";
+    const $paragraph = $("<p>").text(phrase);
+    $(".modal-content").append($paragraph);
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      modal.style.display = "none";
+      $paragraph.remove();
+    };
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+        $paragraph.remove();
+      }
+    };
+  };
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+  //TODO: Start button
+  ///////////////////////////////////////////////////////////////////////////////////////
+  const createStartButton = (text) => {
+    const div = $("<div>").addClass("col-lg-3 col-md-4 col-sm-4");
+    const menuButton = $("<button>")
+      .addClass("btn btn-design5 hideButton showButton")
+      .attr("id", "startButton")
+      .text(text);
+    $("#forButtons").append(menuButton);
+    $("body").append(div);
+  };
+  createStartButton("START GAME");
+
+  $("#startButton").on("click", () => {
+    $($container).removeClass("hide");
+    $($table).removeClass("hide");
+    $("#reset").removeClass("hide");
+    $("#h3title").removeClass("hide");
+    $("#list").removeClass("hide");
+    $("#instructButton").addClass("hide");
+    $("#startButton").addClass("hide");
+    $("#continueButton").addClass("hide");
+    location.reload();
+  });
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+  //TODO: Continue button
+  ///////////////////////////////////////////////////////////////////////////////////////
+  const createContinueButton = (text) => {
+    const div = $("<div>").addClass("col-lg-3 col-md-4 col-sm-4");
+    const menuButton = $("<button>")
+      .addClass("btn btn-design5 hideButton showButton")
+      .attr("id", "continueButton")
+      .text(text);
+    $("#forButtons").append(menuButton);
+    $("body").append(div);
+  };
+  createContinueButton("CONTINUE GAME");
+
+  $("#continueButton").on("click", () => {
+    if ($(".td").hasClass("red") || $(".td").hasClass("yellow")) {
+      $($container).removeClass("hide");
+      $($table).removeClass("hide");
+      $("#reset").removeClass("hide");
+      $("#h3title").removeClass("hide");
+      $("#list").removeClass("hide");
+      $("#instructButton").addClass("hide");
+      $("#startButton").addClass("hide");
+      $("#continueButton").addClass("hide");
+    } else {
+      return createModal("NO AVAILABLE GAMES TO CONTINUE");
+    }
+  });
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+  //TODO: Instructions button
+  ///////////////////////////////////////////////////////////////////////////////////////
+  const createInstructButton = (text) => {
+    const div = $("<div>").addClass("col-lg-3 col-md-4 col-sm-4");
+    const menuButton = $("<button>")
+      .addClass("btn btn-design5 hideButton showButton")
+      .attr("id", "instructButton")
+      .text(text);
+    $("#forButtons").append(menuButton);
+    $("body").append(div);
+  };
+  createInstructButton("HOW TO PLAY");
+
+  $("#instructButton").on("click", () => {
+    createModal(
+      "Connect four discs in a row to win! (Either horizontally / vertically / diagonally)"
+    );
+  });
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+  //TODO: Return button
+  ///////////////////////////////////////////////////////////////////////////////////////
+  const createReturnButton = () => {
+    const div = $("<div>").addClass("col-lg-3 col-md-4 col-sm-4");
+    const menuButton = $("<button>")
+      .addClass("btn btn-design5 hide")
+      .attr("id", "returnButton")
+      .text("RETURN TO FRONT PAGE");
+    $(div).append(menuButton);
+    $("#first").append(div);
+  };
+  createReturnButton();
+
+  const returnMainPage = () => {
+    $("#returnButton").on("click", () => {
+      $($container).addClass("hide");
+      $($table).addClass("hide");
+      $("#reset").addClass("hide");
+      $("#h3title").addClass("hide");
+      $("#instructButton").removeClass("hide");
+      $("#startButton").removeClass("hide");
+      $("#continueButton").removeClass("hide");
+      $("#list").addClass("hide");
     });
   };
+  returnMainPage();
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+  //TODO: Reset button
+  ///////////////////////////////////////////////////////////////////////////////////////
+  const createResetButton = () => {
+    const div = $("<div>").addClass("col-lg-3 col-md-4 col-sm-4");
+    const menuButton = $("<button>")
+      .addClass("btn btn-design5 hide")
+      .attr("id", "reset")
+      .text("RESET GAME");
+    $(div).append(menuButton);
+    $("#second").append(div);
+  };
+  createResetButton();
+
+  // const resetButton = $("<button>").attr("id", "reset").text("Reset Game").addClass("hide show");
+  // $(".container").append(resetButton);
+  const restart = () => {
+    $("#reset").on("click", () => {
+      location.reload();
+    });
+    $($container).removeClass("hide");
+    $($table).removeClass("hide");
+    $("#reset").removeClass("hide");
+    $("#h3title").removeClass("hide");
+    $("#continueButton").addClass("hide");
+    $("#instructButton").addClass("hide");
+    $("#startButton").addClass("hide");
+  };
   restart();
+  
 };
 $(main);
