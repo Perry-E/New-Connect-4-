@@ -2,6 +2,29 @@ const main = () => {
   const $container = $(".container");
   const $table = $("<table>").addClass("table");
   $container.append($table);
+  const $h3 = $("h3").addClass("playerName").css("color", "red");
+
+  const createModal = (phrase) => {
+    // Get the modal
+    const modal = document.getElementById("myModal");
+    // Get the <span> element that closes the modal
+    const span = document.getElementsByClassName("close")[0];
+    modal.style.display = "block";
+    const $paragraph = $("<p>").text(phrase);
+    $(".modal-content").append($paragraph);
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      modal.style.display = "none";
+      ($paragraph).remove();
+    };
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+        ($paragraph).remove();
+      }
+    };
+  };
 
   //Create tr and td
   for (let row = 1; row < 7; row++) {
@@ -13,7 +36,7 @@ const main = () => {
       const $td = $("<td>")
         .addClass("td empty")
         .addClass("column" + col)
-        .text(col)
+        // .text(col)
         .attr("data-col", col)
         .attr("data-row", row);
       $tr.append($td);
@@ -57,14 +80,16 @@ const main = () => {
           $(thirdHorizontal).hasClass("red") &&
           $(forthHorizontal).hasClass("red")
         ) {
-          alert(`Player ${player} won!`);
+          createModal(`Player ${player} won!`);
+          $("h3").remove();
         } else if (
           $(firstHorizontal).hasClass("yellow") &&
           $(secondHorizontal).hasClass("yellow") &&
           $(thirdHorizontal).hasClass("yellow") &&
           $(forthHorizontal).hasClass("yellow")
         ) {
-          alert(`Player ${player} won!`);
+          createModal(`Player ${player} won!`);
+          $("h3").remove();
         }
       }
     }
@@ -98,14 +123,16 @@ const main = () => {
           $(thirdVertical).hasClass("red") &&
           $(forthVertical).hasClass("red")
         ) {
-          alert(`Player ${player} won!`);
+          createModal(`Player ${player} won!`);
+          $("h3").remove();
         } else if (
           $(firstVertical).hasClass("yellow") &&
           $(secondVertical).hasClass("yellow") &&
           $(thirdVertical).hasClass("yellow") &&
           $(forthVertical).hasClass("yellow")
         ) {
-          alert(`Player ${player} won!`);
+          createModal(`Player ${player} won!`);
+          $("h3").remove();
         }
       }
     }
@@ -139,14 +166,16 @@ const main = () => {
           $(thirdDiagonal).hasClass("red") &&
           $(forthDiagonal).hasClass("red")
         ) {
-          alert(`Player ${player} won!`);
+          createModal(`Player ${player} won!`);
+          $("h3").remove();
         } else if (
           $(firstDiagonal).hasClass("yellow") &&
           $(secondDiagonal).hasClass("yellow") &&
           $(thirdDiagonal).hasClass("yellow") &&
           $(forthDiagonal).hasClass("yellow")
         ) {
-          alert(`Player ${player} won!`);
+          createModal(`Player ${player} won!`);
+          $("h3").remove();
         }
       }
     }
@@ -180,14 +209,16 @@ const main = () => {
           $(thirdDiagonal).hasClass("red") &&
           $(forthDiagonal).hasClass("red")
         ) {
-          alert(`Player ${player} won!`);
+          createModal(`Player ${player} won!`);
+          $("h3").remove();
         } else if (
           $(firstDiagonal).hasClass("yellow") &&
           $(secondDiagonal).hasClass("yellow") &&
           $(thirdDiagonal).hasClass("yellow") &&
           $(forthDiagonal).hasClass("yellow")
         ) {
-          alert(`Player ${player} won!`);
+          createModal(`Player ${player} won!`);
+          $("h3").remove();
         }
       }
     }
@@ -197,6 +228,7 @@ const main = () => {
   //TODO: Fuction to swap player turn
   ///////////////////////////////////////////////////////////////////////////////////////
   let player = "1";
+  $h3.text(`Its Player ${player}\'s turn!'`);
 
   //if/else statements to alternate between player 1 and 2
   for (let i = 0; i < $td.length; i++) {
@@ -214,6 +246,7 @@ const main = () => {
         $($td[i + 7]).hasClass("base")
       ) {
         $cellId.removeClass("empty").addClass("red base");
+
         if (
           $horizontalWin() === true ||
           $verticalWin() === true ||
@@ -222,6 +255,7 @@ const main = () => {
         ) {
         } else {
           player = "2";
+          $h3.text(`Its Player ${player}\'s turn!'`).css("color", "yellow");
         }
       } else if (
         player === "2" &&
@@ -237,24 +271,24 @@ const main = () => {
         ) {
         } else {
           player = "1";
+          $h3.text(`Its Player ${player}\'s turn!'`).css("color", "red");
         }
       } else {
-        alert("Please select a valid slot");
+        createModal("Please select a valid slot");
       }
     });
   }
 
-///////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////
   //TODO: Reset button
-///////////////////////////////////////////////////////////////////////////////////////
-const resetButton = $("<button>").attr("id", "reset").text("Reset Game");
-$(".container").append(resetButton);
-const restart = () => {
-  $(resetButton).on("click", () => {
-    location.reload();
-  });
+  ///////////////////////////////////////////////////////////////////////////////////////
+  const resetButton = $("<button>").attr("id", "reset").text("Reset Game");
+  $(".container").append(resetButton);
+  const restart = () => {
+    $(resetButton).on("click", () => {
+      location.reload();
+    });
+  };
+  restart();
 };
-restart();
-};
-
 $(main);
