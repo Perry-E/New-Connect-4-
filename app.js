@@ -243,6 +243,18 @@ const main = () => {
       }
     });
   }
+
+///////////////////////////////////////////////////////////////////////////////////////
+  //TODO: Reset button
+///////////////////////////////////////////////////////////////////////////////////////
+const resetButton = $("<button>").attr("id", "reset").text("Reset Game");
+$(".container").append(resetButton);
+const restart = () => {
+  $(resetButton).on("click", () => {
+    location.reload();
+  });
+};
+restart();
 };
 
 $(main);

@@ -38,3 +38,13 @@ h1 {
 .yellow {
     background-color: yellow;
 }
+
+#reset {
+    text-align: center;
+    display: block;
+    padding: 5px;
+    top:50%;
+    margin: 10px auto;
+    
+
+}
